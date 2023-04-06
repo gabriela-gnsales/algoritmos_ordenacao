@@ -372,7 +372,7 @@ class NaoRelacionada(o: Externa) {
     // Externa.Aninhada não é visível, e Aninhada::e não é visível também
 }
 
-// extensões de função
+// extensões de função -> NÃO ENTENDI MUITO BEM
 fun MutableList<Int>.troca(index1: Int, index2: Int) {
     val tmp = this[index1]
     this[index1] = this[index2]
@@ -386,7 +386,7 @@ fun main() {
     println(list)
 }
 
-// extensões de objeto
+// extensões de objeto -> NÃO ENTENDI MUITO BEM
 class A {
     companion object {
         fun saudar(): String {
@@ -412,7 +412,7 @@ fun main() {
     println("HashCode: " + livro.hashCode())
 }
 
-// classes seladas não podem ser estendidas depois que foram compiladas
+// classes seladas não podem ser estendidas depois que foram compiladas -> NÃO ENTENDI MUITO BEM
 
 sealed interface Expr
 
@@ -435,8 +435,34 @@ fun main() {
     println(caixa2.valor)
 }
 
+// expressões de objetos -> NÃO ENTENDI MUITO BEM
+val olaMundo = object {
+    val ola = "Olá"
+    val mundo = "Mundo"
+    override fun toString() = "$ola $mundo"
+}
 
-????????????
+fun main() {
+   println(olaMundo)
+}
+
+NÃO COLOQUEI SLIDES 5 E 6 DA AULA 36
+
+// delegação
+interface Base {
+    fun print()
+}
+
+class BaseImpl(val x: Int): Base { // em classes tem que declarar a variável com VAL ou VAR
+    override fun print() { print(x) }
+}
+
+class Derived(b: Base): Base by b
+
+fun main() {
+    val b = BaseImpl(10)
+    Derived(b).print()
+}
 
 // função sem retorno -> Unit
 fun printHello(name: String?): Unit { // pode ser tbm sem o Unit: fun printHello(name: String?) {
@@ -464,7 +490,7 @@ fun main() {
     println("a = $a \nb = $b \nc = $c")
 }
 
-// número variável de argumentos
+// número variável de argumentos -> NÃO ENTENDI MUITO BEM
 fun <T> asList(vararg ts: T): List<T> {
     val result = ArrayList<T>()
     for (t in ts) // ts é um Array
@@ -480,7 +506,7 @@ fun main() {
     println("a = $a \nb = $b \nc = $c")
 }
 
-// notação infixa
+// notação infixa -> NÃO ENTENDI MUITO BEM
 infix fun Int.sh1(x: Int): Int { return x + 1 }
 
 fun main() {
@@ -491,12 +517,18 @@ fun main() {
     println(1.sh1(2))
 }
 
+// SLIDE 38 e 39
 
+// função local -> função definida dentro de outra função
 
+// função de membro -> função definida dentro de uma classe ou objeto -> método
+class Sample {
+    fun foo() { print("Foo") }
+}
 
-
-// SLIDE 36
-
+fun main() {
+   Sample().foo()
+}
 
 // TESTE
 
