@@ -215,3 +215,117 @@ trocaValores(&umInt, &outroInt)
 
 print("umInt:", umInt, "\noutroInt:", outroInt)
 
+// (Int, Int) -> Int
+func soma(_ a: Int, _ b: Int) -> Int {
+  return a + b
+}
+// (Int, Int) -> Int
+func multiplica(_ a: Int, _ b: Int) -> Int {
+  return a * b
+}
+// () -> Void
+func olaMundo() {
+  print("Olá, mundo!")
+}
+
+var funcaoMatematica: (Int, Int) -> Int = soma
+print("Soma:", funcaoMatematica(3, 5))
+
+funcaoMatematica = multiplica
+print("Multiplica:", funcaoMatematica(3, 5))
+
+func imprimeRes(_ funcMat: (Int, Int) -> Int, _ a: Int, _ b: Int) {
+  print("Resultado: \(funcMat(a, b))")
+}
+imprimeRes(soma, 3, 5)
+
+// closures
+let nomes = ["Antônio", "Tiago", "Artur", "Bruno"]
+
+func reverso(_ s1: String, _ s2: String) -> Bool {
+  return s1 > s2
+}
+var nomesInvertido = nomes.sorted(by: reverso) // sorted devolve uma cópia ordenada da lista, mas não a altera
+print(nomesInvertido)
+
+// outra forma
+let nomesInvertido = nomes.sorted(by: {(s1: String, s2: String) -> Bool in return s1 > s2})
+
+// outra forma
+let nomesInvertido = nomes.sorted(by: {s1, s2 in return s1 > s2})
+
+// outra forma
+let nomesInvertido = nomes.sorted(by: {s1, s2 in s1 > s2})
+
+// outra forma
+let nomesInvertido = nomes.sorted(by: >)
+
+// enumerações
+enum PontoCardeal {
+  case norte
+  case sul
+  case leste
+  case oeste
+}
+enum Planetas {
+  case mercurio, venus, terra, marte, jupiter
+}
+var direcao = PontoCardeal.norte
+switch direcao {
+  case .norte:
+    print("N")
+  case .sul:
+    print("S")
+  default:
+    print("L ou O")
+}
+
+// structs -> são value type -> significa que, quando é atribuído um valor para outro, cada instância mantém uma cópia exclusiva dos dados -> se uma instância for alterada, a outra não será modificada
+// não precisa usar um construtor para inicializar as variáveis, pois ele já está lá indiretamente
+// structs são imutáveis, então, se quiser alterar uma propriedade dessa struct dentro de uma função, é preciso adicionar a palavra reservada mutating antes do nome da função
+struct Pessoa {
+  var nome: String
+  var sobrenome: String
+  var idade: Int
+
+  func boasVindas() {
+    print("Boas-vindas, \(nome) \(sobrenome)!")
+  }
+
+  mutating func mudarNome(novoNome: String) {
+    self.nome = novoNome
+  }
+}
+var pessoa = Pessoa.init(nome: "John", sobrenome: "Doe", idade: 34)
+print(pessoa.idade) 
+pessoa.boasVindas()
+
+
+// classes
+/* é recomendado usar classes (em vez de structs):
+    - quando você precisar utilizar o conceito de herança, herdar propriedades/métodos de uma outra classe pai;
+    - quando você precisar de interoperabilidade, ou seja, utilizar um código de Objective-C, já que nessa linguagem não existe struct;
+    - quando precisamos controlar a identidade, já que as classes em Swift vêm com uma noção embutida de identidade porque são tipos de referência.
+*/
+class Pessoa {
+  var nome: String
+  var sobrenome: String
+  var idade: Int
+
+  init(nome: String, sobrenome: String, idade: Int) { // construtor
+    self.nome = nome
+    self.sobrenome = sobrenome
+    self.idade = idade
+  }
+
+  func boasVindas() {
+    print("Boas-vindas, \(nome) \(sobrenome)")
+  }
+}
+var pessoa1 = Pessoa.init(nome: "John", sobrenome: "Doe", idade: 34)
+var pessoa2 = pessoa1
+pessoa1.nome = "Gabriel"
+print(pessoa1.nome) // Gabriel
+print(pessoa2.nome) // Gabriel
+
+
